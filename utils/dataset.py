@@ -39,12 +39,11 @@ def read_dataset(path, classes, img_width, img_height):
     for root, _, files in os.walk(path):
         for file in files:
             try:
-                dir_name = os.path.basename(root)
-                if dir_name in classes:
-                    Y.append(classes.index(dir_name))
+                im = mpimg.imread(os.path.join(root, file))
+                X.append(im.reshape(1, n).T)
 
-                    im = mpimg.imread(os.path.join(root, file))
-                    X.append(im.reshape(1, n).T)
+                dir_name = os.path.basename(root)
+                Y.append(classes.index(dir_name))
             except:
                 pass
 
